@@ -1,6 +1,6 @@
 <script>
-	import { Toast, addToast, toaster } from '$lib/index.ts';
-	// import { addToast, Toast, toaster } from '@svelte-things/toast';
+	// import { Toast, addToast, toaster } from '$lib/index.ts';
+	import { Toast, toaster } from '@svelte-things/toast';
 </script>
 
 <div class="w-full flex flex-col items-center justify-center gap-5">
@@ -40,7 +40,15 @@
 		</button>
 	</div>
 
-	<a href="" class="underline">documentation</a>
+	<div class="w-80 h-24 border rounded-md flex justify-start items-center px-5 py-2 relative">
+		<div class="flex items-start flex-col">
+			<h1 class="text-lg capitalize">toast title</h1>
+			<p class="text-gray-400">you message shows here</p>
+		</div>
+		<span class="absolute top-2 right-2">X</span>
+	</div>
+
+	<a href="https://github.com/itsarunkumar/svelte-toast" class="underline">documentation</a>
 </div>
 
 <Toast position="bottom-right" customClass=" bg-slate-900 " />
