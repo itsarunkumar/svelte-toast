@@ -1,5 +1,3 @@
 // Reexport your entry components here
-// export { default as Toast } from './components/toast/toast.svelte';
-// export * from './components/toast/toast.js';
-
-export * from './components/toast/index.js';
+export { default as Toast } from './components/toast/toast.svelte';
+export * from './components/toast/toast.js';

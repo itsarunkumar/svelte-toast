@@ -2,16 +2,23 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { removeToast } from './toast';
+	import { cn } from '$lib/utils/cn';
 
 	import { tweened } from 'svelte/motion';
 	import { fly } from 'svelte/transition';
 
 	export let toast: import('./toast').Toast;
 
+	export let customClass: string = '';
+
 	const progress = tweened(0);
 	const duration = toast.duration || 3000; // Default duration is 3000 ms
 	let animationFrameId: number;
 	let startTime: number;
+
+	// transition
+	export let enterTransition;
+	export let exitTransition;
 
 	onMount(() => {
 		progress.set(0);
@@ -35,20 +42,14 @@
 </script>
 
 <div
-	in:fly={{ x: 20, duration: 500 }}
-	out:fly={{ x: -20, duration: 500 }}
-	class="relative flex w-72 px-1 py-2 overflow-hidden bg-primary-foreground border border-slate-300 border-opacity-30 rounded-md shadow-xl"
+	in:fly={{ ...enterTransition }}
+	out:fly={{ ...exitTransition }}
+	class={cn(
+		`relative flex w-72 px-1 py-2 overflow-hidden bg-primary-foreground border border-gray-500 border-opacity-30 rounded-md shadow-xl ${customClass} `
+	)}
 >
-	<span class="absolute -top-2 -left-3">
-		<!-- <Dot
-			class={`w-9 h-9 ${
-				toast.type === 'success'
-					? 'text-green-500'
-					: toast.type === 'error'
-					? 'text-red-500'
-					: 'text-violet-500'
-			} `}
-		/> -->
+	<!-- this is dot , thinking of removing it -->
+	<!-- <span class="absolute -top-2 -left-3">
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 24 24"
@@ -57,36 +58,22 @@
 			stroke-width="2"
 			stroke-linecap="round"
 			stroke-linejoin="round"
-			class={`w-9 h-9 ${
-				toast.type === 'success'
-					? 'text-green-500'
-					: toast.type === 'error'
-					? 'text-red-500'
-					: 'text-violet-500'
-			} `}><circle cx="12.1" cy="12.1" r="1" /></svg
+			class={cn(`w-9 h-9  ${'text' + toast.progressColor.toString().slice(2)} `)}
+			><circle cx="12.1" cy="12.1" r="1" /></svg
 		>
-	</span>
+	</span> -->
+
 	<div class="mx-3 relative w-full">
 		<div class="flex flex-col gap-1 items-start py-2">
 			<span class="font-semibold capitalize">{toast.title}</span>
 			<p class="text-sm text-muted-foreground">{toast.content}</p>
 		</div>
 
-		<div class="w-16 bg-muted-foreground/30 h-1 absolute top-0 left-0 right-0 rounded-lg">
-			<div
-				class={`h-full  rounded-lg ${
-					toast.type === 'success'
-						? 'bg-green-500'
-						: toast.type === 'error'
-						? 'bg-red-500'
-						: 'bg-violet-500'
-				}`}
-				style="width: {$progress}%"
-			/>
+		<div class="w-16 bg-gray-500 h-1 absolute top-0 left-0 right-0 rounded-lg">
+			<div class={`h-full  rounded-lg ${toast.progressColor}`} style="width: {$progress}%" />
 		</div>
 
 		<button class="absolute top-0 right-0 p-1" on:click={() => removeToast(toast.id)}>
-			<!-- <X class="w-4 h-4" /> -->
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 24 24"

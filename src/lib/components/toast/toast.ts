@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 type ToastType = 'success' | 'error' | 'info';
 
@@ -8,35 +8,44 @@ export type Toast = {
 	content: string;
 	duration?: number;
 	type?: ToastType;
+	progressColor?: string;
+};
+
+const defaultToastConfig = {
+	duration: 2000, // Default duration is 2 seconds
+	type: 'info' // Default toast type
+};
+
+const TOAST_TYPES = {
+	SUCCESS: 'success',
+	ERROR: 'error',
+	INFO: 'info'
 };
 
 const toasts = writable<Toast[]>([]);
+const toastConfig = writable(defaultToastConfig);
 
-function addToast({
-	id = crypto.randomUUID(),
-	title,
-	content,
-	duration = 2000,
-	type = 'info'
-}: Toast) {
+function addToast(toast: Toast) {
+	const config = get(toastConfig);
 	const t = {
-		id,
-		title: title,
-		content: content,
-		duration: duration,
-		type: type
+		id: toast.id || crypto.randomUUID(),
+		title: toast.title,
+		content: toast.content,
+		duration: toast.duration || config.duration,
+		type: toast.type || config.type,
+		progressColor: toast.progressColor
 	};
 	toasts.update((toasts) => [...toasts, t]);
 
 	// Automatically remove the toast after the specified duration, if provided
 	if (t.duration) {
 		setTimeout(() => {
-			removeToast(id); // Use the generated ID to remove the toast
+			removeToast(t.id);
 		}, t.duration);
 	}
 }
 
-function removeToast(id: string | undefined) {
+function removeToast(id: string) {
 	toasts.update((toasts) => toasts.filter((t) => t.id !== id));
 }
 
@@ -44,4 +53,32 @@ function clearToasts() {
 	toasts.set([]);
 }
 
-export { toasts, addToast, removeToast, clearToasts };
+function updateToastConfig(newConfig: {
+	duration: number; // Default duration is 2 seconds
+	type: string;
+}) {
+	toastConfig.update((config) => ({ ...config, ...newConfig }));
+}
+
+const toaster = {
+	success: (toast: Omit<Toast, 'type'>) =>
+		addToast({
+			...toast,
+			type: TOAST_TYPES.SUCCESS,
+			progressColor: toast.progressColor || 'bg-green-500'
+		}),
+	error: (toast: Omit<Toast, 'type'>) =>
+		addToast({
+			...toast,
+			type: TOAST_TYPES.ERROR,
+			progressColor: toast.progressColor || 'bg-red-500'
+		}),
+	info: (toast: Omit<Toast, 'type'>) =>
+		addToast({
+			...toast,
+			type: TOAST_TYPES.INFO,
+			progressColor: toast.progressColor || 'bg-violet-600'
+		})
+};
+
+export { toasts, addToast, removeToast, clearToasts, TOAST_TYPES, updateToastConfig, toaster };
