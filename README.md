@@ -1,6 +1,6 @@
 # Svelte Toast UI
 
-**Svelte Toast UI** is a versatile and customizable toast notification system for Svelte applications. It allows you to easily display informative messages to your users in a visually appealing and user-friendly way.
+[**Svelte Toast UI**](https://github.com/itsarunkumar/svelte-toast) is a versatile and customizable toast notification system for Svelte applications. It allows you to easily display informative messages to your users in a visually appealing and user-friendly way.
 
 ## Features
 
@@ -102,3 +102,7 @@ success
 ```
 
 This example demonstrates how to use the `ToastContainer` component and customize its positioning, styling, and transitions to suit your needs.
+
+[Github source code](https://github.com/itsarunkumar/svelte-toast)
+
+**_contributions are welcomed_**
