@@ -1,10 +1,9 @@
 <script>
-	// import { Toast, addToast, toaster } from '$lib/index.ts';
-	import { Toast, toaster } from '@svelte-things/toast';
+	import { Toast, toaster } from '$lib/index.ts';
 </script>
 
 <div class="w-full flex flex-col items-center justify-center gap-5">
-	<h1 class="text-4xl my-10">svelte-things / Toast</h1>
+	<h1 class="text-4xl my-10">Toast</h1>
 
 	<p class="text-lg first-letter:capitalize">a drop in toast component for svelte</p>
 

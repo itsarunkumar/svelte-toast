@@ -81,9 +81,9 @@
 		<Single {toast} {customClass} {enterTransition} {exitTransition} />
 	{/each}
 
-	{#if $toasts.length > 5}
+	<!-- {#if $toasts.length > 5}
 		<button class="w-full flex items-center justify-center text-gray-400" on:click={clearToasts}
 			>clear all toasts</button
 		>
-	{/if}
+	{/if} -->
 </div>

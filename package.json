@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-things/toast",
-	"version": "0.5.2",
+	"version": "0.5.3",
 	"author": "itsarunkumar",
 	"license": "MIT",
 	"keywords": [
@@ -61,7 +61,6 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
-		"@svelte-things/toast": "^0.5.0",
 		"clsx": "^2.0.0",
 		"tailwind-merge": "^1.14.0"
 	}
