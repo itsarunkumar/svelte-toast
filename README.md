@@ -1,6 +1,8 @@
 # Svelte Toast UI
 
-[**Svelte Toast UI**](https://github.com/itsarunkumar/svelte-toast) is a versatile and customizable toast notification system for Svelte applications. It allows you to easily display informative messages to your users in a visually appealing and user-friendly way.
+see in action -> [Home for stoast](https://stoast.vercel.app/)
+
+_[**Svelte Toast UI**](https://github.com/itsarunkumar/svelte-toast) is a versatile and customizable toast notification system for Svelte applications. It allows you to easily display informative messages to your users in a visually appealing and user-friendly way._
 
 ## Features
 
@@ -40,35 +42,38 @@ To get started with Svelte Toast UI, follow these simple steps:
 
 2.  **Add the `ToastContainer` component** to your layout in your Svelte app's root file. Customize its appearance and position according to your preferences:
 
-    svelteCopy code
-
     ```
-    <ToastContainer
-      position="bottom-right" // Position can be 'top', 'bottom', 'left', 'right', 'center', etc.
+    <Toast
+      position="top-center" // Position can be 'top', 'bottom', 'left', 'right', 'center', etc.
       customClass="" // Add your custom tailwind classes for styling
     />
     ```
 
-3.  **Use the `toaster` object** to trigger toast notifications in your app:
-
-    svelteCopy code
-
+3.  **Use the `toaster` object** to trigger toast notifications in your app
     ```
     <button on:click={() => toaster.success({ title: 'Success', content: 'Task completed!' })}>
       Show Success Toast
     </button>
     ```
+4.  **Customize your toasts** by setting properties like `progressColor` in the `toaster` functions. Customize the progress bar color as needed.
 
-4.  **Customize your toasts** by setting properties like `type` and `progressColor` in the `toaster` functions. Customize the progress bar color as needed.
+**Custom Type toast**
+
+```
+toaster.show({ title: 'Success', content: 'Task completed!' , type:'error' , progressColor:"bg-blue-500" , duration:3000 })
+```
 
 ## ToastContainer Component
 
-The `ToastContainer` component is used to create a container for displaying toast notifications. It offers dynamic positioning and transition options for toast notifications.
+The `Toast` component is used to create a container for displaying toast notifications. It offers dynamic positioning and transition options for toast notifications.
+
+             **should be placed in root of your project**
 
 ### Props
 
 - `position` (optional): Position to display the toast container. Options include 'top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', and 'bottom-right'.
 - `customClass` (optional): Custom CSS classes to style the container.
+- `withProgress`(default = false) : set true to show the progress bar
 
 ### Positioning
 
@@ -81,7 +86,7 @@ The `ToastContainer` component is used to create a container for displaying toas
 
 ```
 <script>
-  import ToastContainer from 'svelte-toast-ui/ToastContainer.svelte';
+  import {Toast} from '@svelte-things/toast';
 
   // Customize the position, styling, and transitions
   let customPosition = 'top-center';
@@ -89,15 +94,14 @@ The `ToastContainer` component is used to create a container for displaying toas
 
 </script>
 
-<button class="px-3 py-1 border bg-slate-50 text-slate-900 rounded-md" on:click={() =>toaster.success({title:  'Success',content:  'This is a success toast',progressColor:  'bg-green-500'})}>
+<button class="px-3 py-1 border bg-slate-50 text-slate-900 rounded-md" on:click={() =>toaster.success({title:  'Success',content:  'This is a success toast',progressColor:  'bg-green-500' , duration:3000 // in ms})}>
 success
 </button>
 
-<ToastContainer
+<Toast
   position={customPosition}
   customClass={customClass}
-  enterTransition={customEnterTransition}
-  exitTransition={customExitTransition}
+
 />
 ```
 

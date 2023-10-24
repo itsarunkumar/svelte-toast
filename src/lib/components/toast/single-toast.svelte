@@ -45,35 +45,20 @@
 	in:fly={{ ...enterTransition }}
 	out:fly={{ ...exitTransition }}
 	class={cn(
-		`relative flex w-72 px-1 py-2 overflow-hidden bg-primary-foreground border border-gray-500 border-opacity-30 rounded-md shadow-xl ${customClass} `
+		`relative flex w-72 py-1  overflow-hidden  border border-gray-500 border-opacity-30 rounded-md shadow-xl bg-slate-50 text-slate-900 ${customClass} `
 	)}
 >
-	<!-- this is dot , thinking of removing it -->
-	<!-- <span class="absolute -top-2 -left-3">
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class={cn(`w-9 h-9  ${'text' + toast.progressColor.toString().slice(2)} `)}
-			><circle cx="12.1" cy="12.1" r="1" /></svg
-		>
-	</span> -->
-
-	<div class="mx-3 relative w-full">
-		<div class="flex flex-col gap-1 items-start py-2">
-			<span class="font-semibold capitalize">{toast.title}</span>
-			<p class="text-sm text-muted-foreground">{toast.content}</p>
-		</div>
-
-		<div class="w-16 bg-gray-500 h-1 absolute top-0 left-0 right-0 rounded-lg">
+	<div class="mx-3 relative w-full flex">
+		<div class="w-1/6 h-1 bg-gray-500 absolute top-0 left-0 rounded-lg">
 			<div class={`h-full  rounded-lg ${toast.progressColor}`} style="width: {$progress}%" />
 		</div>
 
-		<button class="absolute top-0 right-0 p-1" on:click={() => removeToast(toast.id)}>
+		<div class="flex flex-col items-start my-1">
+			<span class="font-semibold capitalize">{toast.title}</span>
+			<p class="text-sm text-gray-400">{toast.content}</p>
+		</div>
+
+		<button class="absolute top-4 right-0" on:click={() => removeToast(toast.id)}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 24 24"

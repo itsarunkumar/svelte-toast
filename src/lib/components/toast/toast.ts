@@ -1,4 +1,5 @@
-import { writable, get } from 'svelte/store';
+import { writable } from 'svelte/store';
+import { tick } from 'svelte';
 
 type ToastType = 'success' | 'error' | 'info';
 
@@ -7,7 +8,7 @@ export type Toast = {
 	title: string;
 	content: string;
 	duration?: number;
-	type?: ToastType;
+	type?: ToastType | undefined;
 	progressColor?: string;
 };
 
@@ -23,21 +24,28 @@ const TOAST_TYPES = {
 };
 
 const toasts = writable<Toast[]>([]);
-const toastConfig = writable(defaultToastConfig);
+let toastIdCounter = 1;
 
-function addToast(toast: Toast) {
-	const config = get(toastConfig);
-	const t = {
-		id: toast.id || crypto.randomUUID(),
+function generateUniqueId(): string {
+	return `${Date.now()}_${toastIdCounter++}_${Math.random()}`;
+}
+
+async function addToast(toast: Toast) {
+	const t: Toast = {
+		id: generateUniqueId(),
 		title: toast.title,
 		content: toast.content,
-		duration: toast.duration || config.duration,
-		type: toast.type || config.type,
+		duration: toast.duration || defaultToastConfig.duration,
+		type: toast.type || defaultToastConfig.type,
 		progressColor: toast.progressColor
 	};
+
+	await tick();
+
 	toasts.update((toasts) => [...toasts, t]);
 
-	// Automatically remove the toast after the specified duration, if provided
+	await tick();
+
 	if (t.duration) {
 		setTimeout(() => {
 			removeToast(t.id);
@@ -53,11 +61,9 @@ function clearToasts() {
 	toasts.set([]);
 }
 
-function updateToastConfig(newConfig: {
-	duration: number; // Default duration is 2 seconds
-	type: string;
-}) {
-	toastConfig.update((config) => ({ ...config, ...newConfig }));
+function updateToastConfig(newConfig: { duration: number; type: string }) {
+	defaultToastConfig.duration = newConfig.duration;
+	defaultToastConfig.type = newConfig.type;
 }
 
 const toaster = {
@@ -78,7 +84,8 @@ const toaster = {
 			...toast,
 			type: TOAST_TYPES.INFO,
 			progressColor: toast.progressColor || 'bg-violet-600'
-		})
+		}),
+	show: addToast
 };
 
 export { toasts, addToast, removeToast, clearToasts, TOAST_TYPES, updateToastConfig, toaster };

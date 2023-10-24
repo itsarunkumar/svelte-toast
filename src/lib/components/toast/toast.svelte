@@ -1,14 +1,18 @@
 <script lang="ts">
 	import { usePortal } from '$lib/utils/portal';
-
 	import { toasts, clearToasts } from './toast';
-
-	import Single from './single-toast.svelte';
 	import { cn } from '$lib/utils/cn';
 
-	export let customClass = '';
-	// export let position = '';
+	import NormalToast from './normal-toast.svelte';
+	import { flip } from 'svelte/animate';
+	import SingleToast from './single-toast.svelte';
+	import { fly, scale } from 'svelte/transition';
 
+	export let customClass = '';
+
+	export let withProgress = false;
+
+	// postion prop
 	export let position:
 		| 'top-left'
 		| 'top-center'
@@ -32,9 +36,11 @@
 			case 'bottom-right':
 				return 'bottom-0 right-0 flex-col';
 			default:
-				return ''; // Default to 'bottom-right' if an invalid position is provided
+				return 'bottom-0 right-0 flex-col'; // Default to 'bottom-right' if an invalid position is provided
 		}
 	}
+
+	// transitions according to position
 
 	let enterTransition = { x: 20, duration: 500 };
 	let exitTransition = { x: -20, duration: 500 };
@@ -78,12 +84,14 @@
 	)}
 >
 	{#each $toasts as toast (toast.id)}
-		<Single {toast} {customClass} {enterTransition} {exitTransition} />
+		<div animate:flip>
+			<svelte:component
+				this={withProgress ? SingleToast : NormalToast}
+				{toast}
+				{customClass}
+				{enterTransition}
+				{exitTransition}
+			/>
+		</div>
 	{/each}
-
-	<!-- {#if $toasts.length > 5}
-		<button class="w-full flex items-center justify-center text-gray-400" on:click={clearToasts}
-			>clear all toasts</button
-		>
-	{/if} -->
 </div>
