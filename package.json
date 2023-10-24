@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-things/toast",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"description": "Toast UI for Svelte",
 	"repository": {
 		"type": "git",
@@ -64,6 +64,7 @@
 	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"main": "./dist/index.js",
 	"type": "module",
 	"dependencies": {
 		"clsx": "^2.0.0",
