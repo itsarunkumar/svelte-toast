@@ -1,6 +1,11 @@
 {
 	"name": "@svelte-things/toast",
-	"version": "0.6.0",
+	"version": "0.6.1",
+	"description": "Toast UI for Svelte",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/itsarunkumar/svelte-toast"
+	},
 	"author": "itsarunkumar",
 	"license": "MIT",
 	"keywords": [
