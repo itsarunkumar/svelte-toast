@@ -57,9 +57,12 @@ To get started with Svelte Toast UI, follow these simple steps:
     ```
 4.  **Customize your toasts** by setting properties like `progressColor` in the `toaster` functions. Customize the progress bar color as needed.
 5.  **Tailwind css required for this component** add this to your tailwind config file
-    "./node_modules/@svelte-things/\*_/_.{html,js,svelte,ts}"
 
-    add this in content of the tailwind config file.
+```
+    ./node_modules/@svelte-things/**/*.{html,js,svelte,ts}
+```
+
+add this in content of the tailwind config file.
 
 **Custom Type toast**
 

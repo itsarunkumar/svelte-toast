@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>toast doc</title>
+		<link rel="stylesheet" href="https://stackedit.io/style.css" />
+	</head>
+
+	<body class="stackedit">
+		<div class="stackedit__html">
+			<h1 id="svelte-toast-ui">Svelte Toast UI</h1>
+			<p>see in action -&gt; <a href="https://stoast.vercel.app/">Home for stoast</a></p>
+			<p>
+				<em
+					><a href="https://github.com/itsarunkumar/svelte-toast"
+						><strong>Svelte Toast UI</strong></a
+					>
+					is a versatile and customizable toast notification system for Svelte applications. It
+					allows you to easily display informative messages to your users in a visually appealing
+					and user-friendly way.</em
+				>
+			</p>
+			<h2 id="features">Features</h2>
+			<ul>
+				<li>
+					🚀 <strong>Easy to Use</strong>: Simple and intuitive API for adding toast notifications.
+				</li>
+				<li>
+					🎨 <strong>Customizable Styling</strong>: Customize the appearance and transition
+					animations to fit your app’s design.
+				</li>
+				<li>
+					⏳ <strong>Auto Dismiss</strong>: Set the duration for how long toasts should be
+					displayed, and they will automatically disappear.
+				</li>
+				<li>
+					🌈 <strong>Multiple Types</strong>: Support for different toast types, including success,
+					error, and information.
+				</li>
+				<li>
+					🧩 <strong>Extendable</strong>: Extend and customize the toast components according to
+					your needs.
+				</li>
+			</ul>
+			<h2 id="installation">Installation</h2>
+			<p>You can install Svelte Toast UI using your preferred package manager:</p>
+			<p><strong>npm</strong></p>
+			<pre><code>npm install @svelte-things/toast 
+</code></pre>
+			<p><strong>pnpm</strong></p>
+			<pre><code>pnpm add @svelte-things/toast 
+</code></pre>
+			<h2 id="usage">Usage</h2>
+			<p>To get started with Svelte Toast UI, follow these simple steps:</p>
+			<ol>
+				<li>
+					<p><strong>Import the required components</strong> in your Svelte application:</p>
+					<pre><code>&lt;script&gt;
+  import { Toast, toaster } from '@svelte-things/toast';
+&lt;/script&gt;
+</code></pre>
+				</li>
+				<li>
+					<p>
+						<strong>Add the <code>ToastContainer</code> component</strong> to your layout in your
+						Svelte app’s root file. Customize its appearance and position according to your
+						preferences:
+					</p>
+					<pre><code>&lt;Toast
+  position="top-center" // Position can be 'top', 'bottom', 'left', 'right', 'center', etc.
+  customClass="" // Add your custom tailwind classes for styling
+/&gt;
+</code></pre>
+				</li>
+				<li>
+					<p>
+						<strong>Use the <code>toaster</code> object</strong> to trigger toast notifications in
+						your app
+					</p>
+					<pre><code>&lt;button on:click={() =&gt; toaster.success({ title: 'Success', content: 'Task completed!' })}&gt;
+  Show Success Toast
+&lt;/button&gt;
+</code></pre>
+				</li>
+				<li>
+					<p>
+						<strong>Customize your toasts</strong> by setting properties like
+						<code>progressColor</code> in the <code>toaster</code> functions. Customize the progress
+						bar color as needed.
+					</p>
+				</li>
+				<li>
+					<p>
+						<strong>Tailwind css required for this component</strong> add this to your tailwind
+						config file
+					</p>
+				</li>
+			</ol>
+			<pre><code>    ./node_modules/@svelte-things/**/*.{html,js,svelte,ts}
+</code></pre>
+			<p>add this in content of the tailwind config file.</p>
+			<p><strong>Custom Type toast</strong></p>
+			<pre><code>toaster.show({ title: 'Success', content: 'Task completed!' , type:'error' , progressColor:"bg-blue-500" , duration:3000 })
+</code></pre>
+			<h2 id="toastcontainer-component">ToastContainer Component</h2>
+			<p>
+				The <code>Toast</code> component is used to create a container for displaying toast
+				notifications. It offers dynamic positioning and transition options for toast notifications.
+			</p>
+			<pre><code>         **should be placed in root of your project**
+</code></pre>
+			<h3 id="props">Props</h3>
+			<ul>
+				<li>
+					<code>position</code> (optional): Position to display the toast container. Options include
+					‘top-left’, ‘top-center’, ‘top-right’, ‘bottom-left’, ‘bottom-center’, and ‘bottom-right’.
+				</li>
+				<li><code>customClass</code> (optional): Custom CSS classes to style the container.</li>
+				<li><code>withProgress</code>(default = false) : set true to show the progress bar</li>
+			</ul>
+			<h3 id="positioning">Positioning</h3>
+			<ul>
+				<li>
+					The <code>position</code> prop allows you to set the desired position of the toast
+					container, which can be adjusted to ‘top-left’, ‘top-center’, ‘top-right’, ‘bottom-left’,
+					‘bottom-center’, or ‘bottom-right’.
+				</li>
+				<li>The container’s position will affect where the toasts appear on the screen.</li>
+			</ul>
+			<h3 id="example">Example</h3>
+			<p>+layout.svelte</p>
+			<pre><code>&lt;script&gt;
+  import {Toast} from '@svelte-things/toast';
+
+  // Customize the position, styling, and transitions
+  let customPosition = 'top-center';
+  let customClass = 'custom-toast-container'; //tailwind classes
+  
+&lt;/script&gt;
+
+&lt;button class="px-3 py-1 border bg-slate-50 text-slate-900 rounded-md" on:click={() =&gt;toaster.success({title:  'Success',content:  'This is a success toast',progressColor:  'bg-green-500' , duration:3000 // in ms})}&gt;
+success
+&lt;/button&gt;
+
+&lt;Toast
+  position={customPosition}
+  customClass={customClass}
+  
+/&gt;
+</code></pre>
+			<p>
+				This example demonstrates how to use the <code>ToastContainer</code> component and customize
+				its positioning, styling, and transitions to suit your needs.
+			</p>
+			<p><a href="https://github.com/itsarunkumar/svelte-toast">Github source code</a></p>
+			<p>
+				<em><strong>contributions are welcomed</strong></em>
+			</p>
+		</div>
+	</body>
+</html>
