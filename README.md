@@ -2,6 +2,8 @@
 
 see in action -> [Home for stoast](https://stoast.vercel.app/)
 
+[go to Docs](https://itsarunkumar.github.io/svelte-toast/)
+
 _[**Svelte Toast UI**](https://github.com/itsarunkumar/svelte-toast) is a versatile and customizable toast notification system for Svelte applications. It allows you to easily display informative messages to your users in a visually appealing and user-friendly way._
 
 ## Features
