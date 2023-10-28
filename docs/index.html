@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>toast doc</title>
+		<title>Toast UI - Svelte things</title>
 		<link rel="stylesheet" href="https://stackedit.io/style.css" />
 	</head>
 
@@ -11,6 +11,7 @@
 		<div class="stackedit__html">
 			<h1 id="svelte-toast-ui">Svelte Toast UI</h1>
 			<p>see in action -&gt; <a href="https://stoast.vercel.app/">Home for stoast</a></p>
+			<p><a href="https://itsarunkumar.github.io/svelte-toast/">go to Docs</a></p>
 			<p>
 				<em
 					><a href="https://github.com/itsarunkumar/svelte-toast"
@@ -99,7 +100,7 @@
 			</ol>
 			<pre><code>    ./node_modules/@svelte-things/**/*.{html,js,svelte,ts}
 </code></pre>
-			<p>add this in content of the tailwind config file.</p>
+			<p>add this in content of the tailwind config file. <strong>important</strong></p>
 			<p><strong>Custom Type toast</strong></p>
 			<pre><code>toaster.show({ title: 'Success', content: 'Task completed!' , type:'error' , progressColor:"bg-blue-500" , duration:3000 })
 </code></pre>
@@ -118,6 +119,14 @@
 				</li>
 				<li><code>customClass</code> (optional): Custom CSS classes to style the container.</li>
 				<li><code>withProgress</code>(default = false) : set true to show the progress bar</li>
+				<li>
+					<code>closable</code>(default = true) : set true to not show the close icon in toast
+				</li>
+				<li><code>maxToast</code>(default = 3) : set the no of toast to show</li>
+				<li>
+					<code>stacked</code>(default = true) : set stacked to falase , if you dont want the toasts
+					stack on top of each other
+				</li>
 			</ul>
 			<h3 id="positioning">Positioning</h3>
 			<ul>
@@ -135,7 +144,7 @@
 
   // Customize the position, styling, and transitions
   let customPosition = 'top-center';
-  let customClass = 'custom-toast-container'; //tailwind classes
+  let customClass = 'bg-primary'; //tailwind classes
   
 &lt;/script&gt;
 

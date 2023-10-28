@@ -54,8 +54,8 @@
 		</div>
 
 		<div class="flex flex-col items-start my-1">
-			<span class="font-semibold capitalize">{toast.title}</span>
-			<p class="text-sm text-gray-400">{toast.content}</p>
+			<span class="font-semibold capitalize">{@html toast.title}</span>
+			<p class="text-sm text-gray-400">{@html toast.content}</p>
 		</div>
 
 		<button class="absolute top-4 right-0" on:click={() => removeToast(toast.id)}>

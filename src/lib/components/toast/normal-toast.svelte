@@ -3,7 +3,7 @@
 	import { removeToast, type Toast } from './toast';
 	import { cn } from '$lib/utils/cn';
 
-	import { fly, type FlyParams } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
 	// icons
 	import Success from './icons/success.svelte';
@@ -13,6 +13,8 @@
 	export let toast: Toast;
 
 	export let customClass: string = '';
+
+	export let closable: boolean = true;
 
 	// transition
 	export let enterTransition;
@@ -49,7 +51,7 @@
 	in:fly={{ ...enterTransition }}
 	out:fly={{ ...exitTransition }}
 	class={cn(
-		`relative flex w-80    border border-gray-200 rounded-md shadow-xl bg-slate-50 text-slate-900 
+		`relative flex w-80  border border-gray-200 rounded-md shadow-xl bg-slate-50 text-slate-900 
 			
 		 ${customClass} `
 	)}
@@ -57,20 +59,22 @@
 	<div class="mx-3 relative w-full">
 		<div class="flex items-center gap-2 px-5 py-2">
 			<svelte:component this={giveIcon()} class={giveIconstyle()} />
-			<p class="text-base text-muted-foreground">{toast.content}</p>
+			<p class="text-base text-muted-foreground">{@html toast.content}</p>
 		</div>
 
-		<button class="absolute top-3 right-0" on:click={() => removeToast(toast.id)}>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				class="w-4 h-4"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg
-			>
-		</button>
+		{#if closable}
+			<button class="absolute top-3 right-0" on:click={() => removeToast(toast.id)}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="w-4 h-4"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg
+				>
+			</button>
+		{/if}
 	</div>
 </div>

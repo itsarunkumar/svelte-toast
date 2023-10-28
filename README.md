@@ -64,7 +64,7 @@ To get started with Svelte Toast UI, follow these simple steps:
     ./node_modules/@svelte-things/**/*.{html,js,svelte,ts}
 ```
 
-add this in content of the tailwind config file.
+add this in content of the tailwind config file. **important**
 
 **Custom Type toast**
 
@@ -83,6 +83,9 @@ The `Toast` component is used to create a container for displaying toast notific
 - `position` (optional): Position to display the toast container. Options include 'top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', and 'bottom-right'.
 - `customClass` (optional): Custom CSS classes to style the container.
 - `withProgress`(default = false) : set true to show the progress bar
+- `closable`(default = true) : set true to not show the close icon in toast
+- `maxToast`(default = 3) : set the no of toast to show
+- `stacked`(default = true) : set stacked to falase , if you dont want the toasts stack on top of each other
 
 ### Positioning
 
@@ -99,7 +102,7 @@ The `Toast` component is used to create a container for displaying toast notific
 
   // Customize the position, styling, and transitions
   let customPosition = 'top-center';
-  let customClass = 'custom-toast-container'; //tailwind classes
+  let customClass = 'bg-primary'; //tailwind classes
 
 </script>
 

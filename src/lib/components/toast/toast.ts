@@ -48,7 +48,7 @@ async function addToast(toast: Toast) {
 
 	if (t.duration) {
 		setTimeout(() => {
-			removeToast(t.id);
+			removeToast(t.id as string);
 		}, t.duration);
 	}
 }
@@ -59,6 +59,10 @@ function removeToast(id: string) {
 
 function clearToasts() {
 	toasts.set([]);
+}
+
+function clearLastToast(num: number) {
+	toasts.update((toasts) => toasts.slice(-num));
 }
 
 function updateToastConfig(newConfig: { duration: number; type: string }) {
@@ -88,4 +92,13 @@ const toaster = {
 	show: addToast
 };
 
-export { toasts, addToast, removeToast, clearToasts, TOAST_TYPES, updateToastConfig, toaster };
+export {
+	toasts,
+	addToast,
+	removeToast,
+	clearToasts,
+	clearLastToast,
+	TOAST_TYPES,
+	updateToastConfig,
+	toaster
+};

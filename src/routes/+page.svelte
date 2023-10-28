@@ -2,25 +2,38 @@
 	import { Toast, toaster } from '$lib/index.ts';
 
 	let isProgess = false;
+	let isStacked = true;
+
+	let maxToasts = 3;
+
+	// for select value
+	let selectValue = 'top-center';
 
 	function randomToast() {
 		// show the three type of toast in random
 
 		const type = ['success', 'error', 'info'];
-		const randomType = type[Math.floor(Math.random() * type.length)];
+		const color = ['bg-green-500', 'bg-red-500', 'bg-blue-500'];
+
+		let i = Math.floor(Math.random() * type.length);
+		const randomType = type[i];
+		const randomColor = color[i];
 
 		toaster.show({
 			type: randomType,
 			title: `Toast ${randomType}`,
-			content: `Toast ${randomType}`,
-			duration: 3000,
-			progressColor: 'bg-green-500'
+			content: `<div class="capitalize"> this is a toast notification ${randomType} </div>`,
+			duration: 1500,
+			progressColor: randomColor
 		});
 	}
 
 	function checkbox() {
 		isProgess = !isProgess;
-		console.log(isProgess);
+	}
+
+	function stackedToasts() {
+		isStacked = !isStacked;
 	}
 </script>
 
@@ -54,6 +67,48 @@
 		Show progress
 	</label>
 
+	<label for="stacked" class="flex items-center gap-2">
+		<input
+			type="checkbox"
+			name="stacked"
+			id="stacked"
+			on:input={stackedToasts}
+			bind:checked={isStacked}
+			class="w-4 h-4"
+		/>
+		Stacked toast
+	</label>
+
+	<label for="maxtoast" class="flex items-center gap-2">
+		<input
+			type="number"
+			name="maxtoast"
+			id="maxtoast"
+			bind:value={maxToasts}
+			min="1"
+			max="10"
+			class=" border shadow-md px-2 py-2 w-16 rounded-md"
+		/>
+		Maximum toast to show
+	</label>
+
+	<label for="position" class="flex items-center gap-2">
+		Position
+		<select
+			id="position"
+			name="position"
+			bind:value={selectValue}
+			class="border shadow-md px-2 py-2 w-full rounded-md"
+		>
+			<option value="top-left">top-left</option>
+			<option value="top-center">top-center</option>
+			<option value="top-right">top-right</option>
+			<option value="bottom-left">bottom-left</option>
+			<option value="bottom-center">bottom-center</option>
+			<option value="bottom-right">bottom-right</option>
+		</select>
+	</label>
+
 	<div
 		class="w-80 h-20 border border-gray-600 border-opacity-30 shadow-xl rounded-md flex justify-start items-center px-2 py-2 relative"
 	>
@@ -66,4 +121,11 @@
 	<a href="https://github.com/itsarunkumar/svelte-toast" class="underline">Github</a>
 </div>
 
-<Toast position="top-center" customClass="" withProgress={isProgess} />
+<Toast
+	position={selectValue}
+	stacked={isStacked}
+	{maxToasts}
+	customClass=""
+	withProgress={isProgess}
+	closable={false}
+/>
