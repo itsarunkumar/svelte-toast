@@ -13,7 +13,7 @@
 
 	export let withProgress = false;
 
-	export let stacked = false;
+	export let stacked = true;
 
 	export let maxToasts = 3;
 
