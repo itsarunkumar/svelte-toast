@@ -86,10 +86,25 @@
 	$: if ($toasts.length > maxToasts) {
 		clearLastToast(maxToasts);
 	}
+
+	$: if ($toasts.length === 0) {
+		stacked = true;
+	}
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <div
 	use:usePortal
+	on:mouseenter={async () => {
+		await new Promise((r) => setTimeout(r, 500));
+		if ($toasts.length <= 1) return;
+		stacked = false;
+	}}
+	on:mouseleave={() => {
+		if ($toasts.length <= 1) return;
+		stacked = true;
+	}}
 	class={cn(
 		`fixed max-w-max max-h-max flex items-end gap-2 z-[9999] mx-2 my-3  ${positionClass(
 			position

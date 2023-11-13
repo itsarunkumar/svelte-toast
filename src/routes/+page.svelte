@@ -23,7 +23,7 @@
 			type: randomType,
 			title: `Toast ${randomType}`,
 			content: `<div class="capitalize"> this is a toast notification ${randomType} </div>`,
-			duration: 1500,
+			duration: 3500,
 			progressColor: randomColor
 		});
 	}
@@ -125,7 +125,6 @@
 	position={selectValue}
 	stacked={isStacked}
 	{maxToasts}
-	customClass=""
 	withProgress={isProgess}
 	closable={false}
 />
