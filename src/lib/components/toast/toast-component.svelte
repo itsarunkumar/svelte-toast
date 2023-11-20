@@ -3,18 +3,48 @@
 	import { removeToast, type ToastType, type Toast } from './toast.js';
 
 	import { fly } from 'svelte/transition';
+	import { tweened } from 'svelte/motion';
 
 	// Icons
 	import CheckIcon from './icons/success.svelte';
 	import InfoIcon from './icons/info.svelte';
 	import ErrorIcon from './icons/error.svelte';
 	import Loader from './icons/loading.svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { cn } from '$lib/utils/cn.js';
 
 	export let toast: Toast;
 	export let customClass: string = '';
 	export let closable: boolean = true;
 	export let enterTransition: any;
 	export let exitTransition: any;
+	export let withProgress: boolean = false;
+
+	// progress bar things
+	const progress = tweened(0);
+	const duration = toast.duration!; // Default duration is 3000 ms
+	let animationFrameId: number;
+	let startTime: number;
+
+	onMount(() => {
+		progress.set(0);
+		startTime = Date.now();
+
+		function updateProgress() {
+			const currentTime = Date.now();
+			const elapsed = currentTime - startTime;
+			const percentage = (elapsed / duration) * 100 + 8;
+
+			progress.set(Math.min(percentage, 100)); // Clamp progress to a maximum of 100%
+			animationFrameId = requestAnimationFrame(updateProgress);
+		}
+
+		updateProgress();
+	});
+
+	onDestroy(() => {
+		cancelAnimationFrame(animationFrameId);
+	});
 
 	function getIconComponent() {
 		switch (toast.type) {
@@ -69,6 +99,12 @@
 	out:fly={{ ...exitTransition }}
 	class={`relative flex w-80 rounded-md   bg-gray-100 text-slate-800 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] drop-shadow-md   ${customClass}`}
 >
+	{#if withProgress}
+		<div
+			class={cn('absolute top-0 left-0 h-[3px] bg-yellow-500 rounded-md', toast.progressColor)}
+			style={`width: ${$progress}%`}
+		/>
+	{/if}
 	<div class="relative w-full h-full py-4 flex items-center justify-center">
 		<div class="flex items-center justify-center gap-4 w-full h-full">
 			{#if toast.type === 'promise'}
@@ -108,3 +144,6 @@
 		{/if}
 	</div>
 </div>
+
+<style>
+</style>

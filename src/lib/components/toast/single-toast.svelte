@@ -1,13 +1,13 @@
 <!-- Toast.svelte -->
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import { removeToast } from './toast';
-	import { cn } from '$lib/utils/cn';
+	import { removeToast } from './toast.js';
+	import { cn } from '$lib/utils/cn.js';
 
 	import { tweened } from 'svelte/motion';
 	import { fly } from 'svelte/transition';
 
-	export let toast: import('./toast').Toast;
+	export let toast: import('./toast.js').Toast;
 
 	export let customClass: string = '';
 
@@ -17,8 +17,8 @@
 	let startTime: number;
 
 	// transition
-	export let enterTransition;
-	export let exitTransition;
+	export let enterTransition: any;
+	export let exitTransition: any;
 
 	onMount(() => {
 		progress.set(0);

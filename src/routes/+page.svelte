@@ -1,5 +1,9 @@
-<script>
-	import { Toast, toaster } from '$lib/index.ts';
+<script lang="ts">
+	import { Toast, toaster, type ToastType, TOAST_TYPES } from '$lib/index.js';
+
+	import toastlogo from './toast-logo.png';
+
+	// updateToastConfig({ duration: 9000, type: 'success' });
 
 	let isProgess = false;
 	let isStacked = true;
@@ -20,10 +24,10 @@
 		const randomColor = color[i];
 
 		toaster.show({
-			type: randomType,
+			type: randomType as ToastType,
 			title: `Toast ${randomType}`,
-			content: `<div class="capitalize"> this is a toast notification ${randomType} </div>`,
-			duration: 3500,
+			content: `this is a toast with ${randomType} type`,
+			duration: 10500,
 			progressColor: randomColor
 		});
 	}
@@ -38,7 +42,11 @@
 </script>
 
 <div class="w-full flex flex-col items-center justify-center gap-5">
-	<h1 class="text-4xl my-10">Toast</h1>
+	<div class="flex items-center gap-3">
+		<img src={toastlogo} alt="" class="w-7 h-7" />
+
+		<h1 class="text-4xl my-10">Toast</h1>
+	</div>
 
 	<p class="text-lg first-letter:capitalize">a drop in toast component for svelte</p>
 
@@ -46,6 +54,21 @@
 		<button
 			class="capitalize px-5 py-2 border rounded-md bg-slate-800 text-slate-50"
 			on:click={randomToast}>toast</button
+		>
+		<button
+			class="capitalize px-5 py-2 border rounded-md bg-slate-800 text-slate-50"
+			on:click={() => {
+				toaster.promise({
+					title: 'Promise Toast',
+					content: new Promise((resolve) => {
+						setTimeout(() => {
+							resolve('Promise resolved!');
+						}, 3000);
+					}),
+					progressColor: 'bg-blue-500'
+				});
+				console.log('clicked');
+			}}>promise</button
 		>
 		<a
 			href="https://github.com/itsarunkumar/svelte-toast"

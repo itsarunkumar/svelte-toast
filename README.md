@@ -2,8 +2,6 @@
 
 see in action -> [Home for stoast](https://stoast.vercel.app/)
 
-[go to Docs](https://itsarunkumar.github.io/svelte-toast/)
-
 _[**Svelte Toast UI**](https://github.com/itsarunkumar/svelte-toast) is a versatile and customizable toast notification system for Svelte applications. It allows you to easily display informative messages to your users in a visually appealing and user-friendly way._
 
 ## Features
@@ -43,14 +41,12 @@ To get started with Svelte Toast UI, follow these simple steps:
     ```
 
 2.  **Add the `ToastContainer` component** to your layout in your Svelte app's root file. Customize its appearance and position according to your preferences:
-
     ```
     <Toast
       position="top-center" // Position can be 'top', 'bottom', 'left', 'right', 'center', etc.
       customClass="" // Add your custom tailwind classes for styling
     />
     ```
-
 3.  **Use the `toaster` object** to trigger toast notifications in your app
     ```
     <button on:click={() => toaster.success({ title: 'Success', content: 'Task completed!' })}>
@@ -70,6 +66,12 @@ add this in content of the tailwind config file. **important**
 
 ```
 toaster.show({ title: 'Success', content: 'Task completed!' , type:'error' , progressColor:"bg-blue-500" , duration:3000 })
+```
+
+**Promise Toast**
+
+```
+toaster.promise({ title: 'Promise Toast', content: new Promise((resolve) => { setTimeout(() => { resolve('Promise resolved!'); }, 3000); }),  });
 ```
 
 ## ToastContainer Component
