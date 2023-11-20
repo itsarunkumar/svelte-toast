@@ -19,13 +19,13 @@ You can install Svelte Toast UI using your preferred package manager:
 **npm**
 
 ```
-npm install @svelte-things/toast
+npm i @svelte-kit/svelte-toast
 ```
 
 **pnpm**
 
 ```
-pnpm add @svelte-things/toast
+pnpm add @svelte-kit/svelte-toast
 ```
 
 ## Usage
