@@ -36,7 +36,7 @@ To get started with Svelte Toast UI, follow these simple steps:
 
     ```
     <script>
-      import { Toast, toaster } from '@svelte-things/toast';
+      import { Toast, toaster } from '@svelte-kit/svelte-toast';
     </script>
     ```
 
@@ -57,7 +57,7 @@ To get started with Svelte Toast UI, follow these simple steps:
 5.  **Tailwind css required for this component** add this to your tailwind config file
 
 ```
-    ./node_modules/@svelte-things/**/*.{html,js,svelte,ts}
+    ./node_modules/@svelte-kit/**/*.{html,js,svelte,ts}
 ```
 
 add this in content of the tailwind config file. **important**
@@ -100,7 +100,7 @@ The `Toast` component is used to create a container for displaying toast notific
 
 ```
 <script>
-  import {Toast} from '@svelte-things/toast';
+  import {Toast} from '@svelte-kit/svelte-toast';
 
   // Customize the position, styling, and transitions
   let customPosition = 'top-center';
@@ -115,7 +115,6 @@ success
 <Toast
   position={customPosition}
   customClass={customClass}
-
 />
 ```
 

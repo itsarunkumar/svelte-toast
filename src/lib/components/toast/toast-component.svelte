@@ -1,6 +1,7 @@
 <!-- Toast.svelte -->
 <script lang="ts">
-	import { removeToast, type ToastType, type Toast } from './toast.js';
+	import { removeToast } from './toast.js';
+	import type { Toast } from './types.js';
 
 	import { fly } from 'svelte/transition';
 	import { tweened } from 'svelte/motion';

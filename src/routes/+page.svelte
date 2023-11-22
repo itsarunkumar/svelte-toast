@@ -27,7 +27,7 @@
 			type: randomType as ToastType,
 			title: `Toast ${randomType}`,
 			content: `this is a toast with ${randomType} type`,
-			duration: 10500,
+			duration: 3000,
 			progressColor: randomColor
 		});
 	}
@@ -56,7 +56,7 @@
 			on:click={randomToast}>toast</button
 		>
 		<button
-			class="capitalize px-5 py-2 border rounded-md bg-slate-800 text-slate-50"
+			class="capitalize px-5 py-2 border rounded-md bg-amber-500 text-slate-50"
 			on:click={() => {
 				toaster.promise({
 					title: 'Promise Toast',

@@ -1,27 +1,10 @@
 // toast.ts
-import { writable, type Writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { tick } from 'svelte';
 
-export type ToastType = 'success' | 'error' | 'info' | 'promise';
+import type { PromiseToast, Toast, ToastStore, ToastType } from './types.js';
 
-export type Toast = {
-	id: string;
-	title: string;
-	content: string | Promise<string>;
-	duration?: number;
-	type?: ToastType;
-	progressColor?: string;
-};
-
-export type PromiseToast = {
-	id?: string;
-	title: string;
-	content: Promise<string>; // Change content type to Promise<string>
-	type?: 'promise'; // Explicitly set type to 'promise'
-	progressColor?: string;
-};
-
-type ToastStore = Writable<Toast[]>;
+import { generateUniqueId } from './utils.js';
 
 const defaultToastConfig = {
 	duration: 2000,
@@ -36,11 +19,6 @@ const TOAST_TYPES = {
 };
 
 const toasts: ToastStore = writable<Toast[]>([]);
-let toastIdCounter = 1;
-
-function generateUniqueId(): string {
-	return `${Date.now()}_${toastIdCounter++}_${Math.random()}`;
-}
 
 async function addPromiseToast(promiseToast: PromiseToast) {
 	const t: Toast = {
