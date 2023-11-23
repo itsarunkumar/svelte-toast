@@ -91,27 +91,28 @@ function updateToastConfig(newConfig: { duration: number; type: ToastType }) {
 }
 
 const toaster = {
-	success: (toast: Omit<Toast, 'type'>) =>
+	success: (toast: Omit<Toast, 'id'>) =>
 		addToast({
 			...toast,
 			type: TOAST_TYPES.SUCCESS,
 			progressColor: toast.progressColor || 'bg-green-500'
 		}),
-	error: (toast: Omit<Toast, 'type'>) =>
+	error: (toast: Omit<Toast, 'id'>) =>
 		addToast({
 			...toast,
 			type: TOAST_TYPES.ERROR,
 			progressColor: toast.progressColor || 'bg-red-500'
 		}),
-	info: (toast: Omit<Toast, 'type'>) =>
+	info: (toast: Omit<Toast, 'id'>) =>
 		addToast({
 			...toast,
 			type: TOAST_TYPES.INFO,
 			progressColor: toast.progressColor || 'bg-violet-600'
 		}),
-	promise: (toast: Omit<PromiseToast, 'type'>) =>
+	promise: (toast: Omit<PromiseToast, 'id'>) =>
 		addPromiseToast({
 			...toast,
+			type: TOAST_TYPES.PROMISE,
 			progressColor: toast.progressColor || 'bg-yellow-500'
 		}),
 	show: addToast
