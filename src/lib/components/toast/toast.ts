@@ -4,7 +4,7 @@ import { tick } from 'svelte';
 
 import type { PromiseToast, Toast, ToastStore, ToastType } from './types.js';
 
-import { generateUniqueId } from './utils.js';
+import { generateUniqueId, updateProgress } from './utils.js';
 
 const defaultToastConfig = {
 	duration: 2000,
@@ -48,13 +48,15 @@ function updateToastContent(id: string, content: string) {
 }
 
 async function addToast(toast: Omit<Toast, 'id'>) {
+	const progress = writable(0);
 	const t: Toast = {
 		id: generateUniqueId(),
 		title: toast.title,
 		content: toast.content,
 		duration: toast.duration || defaultToastConfig.duration,
 		type: toast.type || defaultToastConfig.type,
-		progressColor: toast.progressColor
+		progressColor: toast.progressColor,
+		progress
 	};
 
 	await tick();
@@ -62,6 +64,9 @@ async function addToast(toast: Omit<Toast, 'id'>) {
 	toasts.update((existingToasts) => [...existingToasts, t]);
 
 	await tick();
+
+	const start = Date.now();
+	updateProgress(t, start);
 
 	setTimeout(() => {
 		removeToast(t.id as string);

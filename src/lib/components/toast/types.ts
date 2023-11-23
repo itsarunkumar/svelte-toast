@@ -9,6 +9,7 @@ export type Toast = {
 	duration?: number;
 	type?: ToastType;
 	progressColor?: string;
+	progress?: Writable<number>;
 };
 
 export type PromiseToast = {

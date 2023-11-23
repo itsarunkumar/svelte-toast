@@ -7,6 +7,7 @@
 	import { flip } from 'svelte/animate';
 
 	import Toast from './toast-component.svelte';
+	import { fly } from 'svelte/transition';
 
 	// Props
 	export let customClass = '';
@@ -14,6 +15,8 @@
 	export let stacked = true;
 	export let maxToasts = 3;
 	export let closable = true;
+
+	export let customToast = false;
 
 	// Position prop
 	export let position:
@@ -107,10 +110,16 @@
 	{#each $toasts as toast, index (toast.id)}
 		<div
 			animate:flip
+			in:fly={enterTransition}
+			out:fly={exitTransition}
 			class={`${stacked ? `absolute py-3 ${positionClass(position)}` : ''}`}
 			style={calculatePositionStyle(index)}
 		>
-			<Toast {withProgress} {toast} {closable} {customClass} {enterTransition} {exitTransition} />
+			{#if customToast}
+				<slot data={toast} />
+			{:else}
+				<Toast {withProgress} {toast} {closable} {customClass} {enterTransition} {exitTransition} />
+			{/if}
 		</div>
 	{/each}
 </div>

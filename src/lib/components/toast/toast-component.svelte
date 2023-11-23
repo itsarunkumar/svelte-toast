@@ -1,18 +1,16 @@
 <!-- Toast.svelte -->
 <script lang="ts">
 	import { removeToast } from './toast.js';
+	import { cn } from '$lib/utils/cn.js';
 	import type { Toast } from './types.js';
 
 	import { fly } from 'svelte/transition';
-	import { tweened } from 'svelte/motion';
 
 	// Icons
 	import CheckIcon from './icons/success.svelte';
 	import InfoIcon from './icons/info.svelte';
 	import ErrorIcon from './icons/error.svelte';
 	import Loader from './icons/loading.svelte';
-	import { onDestroy, onMount } from 'svelte';
-	import { cn } from '$lib/utils/cn.js';
 
 	export let toast: Toast;
 	export let customClass: string = '';
@@ -21,31 +19,7 @@
 	export let exitTransition: any;
 	export let withProgress: boolean = false;
 
-	// progress bar things
-	const progress = tweened(0);
-	const duration = toast.duration!; // Default duration is 3000 ms
-	let animationFrameId: number;
-	let startTime: number;
-
-	onMount(() => {
-		progress.set(0);
-		startTime = Date.now();
-
-		function updateProgress() {
-			const currentTime = Date.now();
-			const elapsed = currentTime - startTime;
-			const percentage = (elapsed / duration) * 100 + 8;
-
-			progress.set(Math.min(percentage, 100)); // Clamp progress to a maximum of 100%
-			animationFrameId = requestAnimationFrame(updateProgress);
-		}
-
-		updateProgress();
-	});
-
-	onDestroy(() => {
-		cancelAnimationFrame(animationFrameId);
-	});
+	const { progress } = toast;
 
 	function getIconComponent() {
 		switch (toast.type) {
@@ -117,8 +91,8 @@
 					<p class="animate-pulse text-base">Loading...</p>
 				{/if}
 			{:else}
-				<svelte:component this={getIconComponent()} class={`${getIconColor()} w-5 h-5`} ` />
-				<p class="text-base">{@html toast.content}</p>
+				<svelte:component this={getIconComponent()} class={`${getIconColor()} w-5 h-5  `} ` />
+				<p class="text-base text-center">{@html toast.content}</p>
 			{/if}
 		</div>
 

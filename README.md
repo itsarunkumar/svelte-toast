@@ -104,7 +104,6 @@ The `Toast` component is used to create a container for displaying toast notific
 
   // Customize the position, styling, and transitions
   let customPosition = 'top-center';
-  let customClass = 'bg-primary'; //tailwind classes
 
 </script>
 
@@ -114,8 +113,25 @@ success
 
 <Toast
   position={customPosition}
-  customClass={customClass}
 />
+```
+
+## If you want custom toast
+
+```
+<Toast
+position="top-center
+maxToasts=3
+let:data
+customToast
+>
+
+<div class="w-80 py-2 text-center border bg-slate-50 border-gray-600 border-opacity-30 shadow-xl rounded-md">
+   <h1>{data.title}</h1>
+   <p>{data.content}</p>
+</div>
+
+</Toast>
 ```
 
 This example demonstrates how to use the `ToastContainer` component and customize its positioning, styling, and transitions to suit your needs.

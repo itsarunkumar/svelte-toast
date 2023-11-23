@@ -8,5 +8,5 @@
 	stroke-width="2"
 	stroke-linecap="round"
 	stroke-linejoin="round"
-	class={$$props.class}><polyline points="20 6 9 17 4 12" /></svg
+	class={$$props.class}><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg
 >

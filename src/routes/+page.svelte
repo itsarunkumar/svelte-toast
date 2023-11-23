@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Toast, toaster, type ToastType, TOAST_TYPES } from '$lib/index.js';
+	import { Toast, toaster, toasts } from '$lib/index.js';
+	import { fade, slide, draw, fly, crossfade, scale } from 'svelte/transition';
 
 	import toastlogo from './toast-logo.png';
 
@@ -24,10 +25,10 @@
 		const randomColor = color[i];
 
 		toaster.show({
-			type: randomType as ToastType,
+			type: randomType as 'success' | 'error' | 'info',
 			title: `Toast ${randomType}`,
 			content: `this is a toast with ${randomType} type`,
-			duration: 3000,
+			duration: 13000,
 			progressColor: randomColor
 		});
 	}
@@ -150,4 +151,12 @@
 	{maxToasts}
 	withProgress={isProgess}
 	closable={false}
-/>
+	let:data
+>
+	<div
+		class="w-80 py-2 text-center border bg-slate-50 border-gray-600 border-opacity-30 shadow-xl rounded-md"
+	>
+		<h1>{data.title}</h1>
+		<p>{data.content}</p>
+	</div>
+</Toast>
