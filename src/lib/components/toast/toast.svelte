@@ -1,13 +1,14 @@
 <!-- ToastContainer.svelte -->
 <script lang="ts">
+	import { flip } from 'svelte/animate';
+	import { scale } from 'svelte/transition';
+	import { linear } from 'svelte/easing';
+
 	import { usePortal } from '$lib/utils/portal.js';
 	import { toasts, clearLastToast } from './toast.js';
 	import { cn } from '$lib/utils/cn.js';
 
-	import { flip } from 'svelte/animate';
-
 	import Toast from './toast-component.svelte';
-	import { fly } from 'svelte/transition';
 
 	// Props
 	export let customClass = '';
@@ -91,9 +92,9 @@
 		clearLastToast(maxToasts);
 	}
 
-	$: if ($toasts.length === 0) {
-		stacked = true;
-	}
+	// $: if ($toasts.length === 0) {
+	// 	stacked = true;
+	// }
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -110,8 +111,8 @@
 	{#each $toasts as toast, index (toast.id)}
 		<div
 			animate:flip
-			in:fly={enterTransition}
-			out:fly={exitTransition}
+			in:scale={{ duration: 200, easing: linear, delay: 0, opacity: 0.5, start: 0.8 }}
+			out:scale={exitTransition}
 			class={`${stacked ? `absolute py-3 ${positionClass(position)}` : ''}`}
 			style={calculatePositionStyle(index)}
 		>

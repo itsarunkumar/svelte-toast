@@ -2,3 +2,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* * {
+	height: 100%;
+} */
+
+html,
+body,
+:root {
+	height: 100%;
+}
