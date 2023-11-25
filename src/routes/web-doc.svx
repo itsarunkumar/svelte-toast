@@ -1,0 +1,64 @@
+## Svelte Toast
+Let's install the package from *npm*
+
+**NPM:**
+```javascript
+npm i @svelte-kit/svelte-toast
+```
+**PNPM:**
+```javascript
+pnpm add @svelte-kit/svelte-toast
+```
+**Add tailwind config:**
+```javascript
+/** @type {import('tailwindcss').Config}*/
+const config = {
+content: [
+'./src/**/*.{html,js,svelte,ts}',
+' ./node_modules/@svelte-kit/**/*.{html,js,svelte,ts}'
+],
+theme: {
+	extend: {}
+},
+plugins: []
+};
+module.exports = config;
+```
+**Import the Toast from @svelte-kit/svelte-toast and place it in root of your project:**
+```javascript
+import {Toast} from '@svelte-kit/svelte-toast';
+
+<Toast position="top-center" maxToats=3 />
+```
+**usage**
+```javascript
+import {toaster} from '@svelte-kit/svelte-toast';
+
+<button
+	class="... tailwind classname"
+	on:click={() =>
+		toaster.success(
+			{title: 'Success',
+			content: 'This is a success toast',
+			progressColor: 'bg-green-500' ,
+			duration:3000
+		})}
+>
+	success
+</button>
+```
+**If you want to custom style the toast**
+```javascript
+<Toast
+	position="top-center"
+	maxToasts=3
+	let:data
+	customToast
+>
+
+	<div class="...tailwind classname">
+		<h1>{data.title}</h1>
+		<p>{data.content}</p>
+	</div>
+</Toast>
+```
