@@ -11,11 +11,11 @@
 	import Toast from './toast-component.svelte';
 
 	// Props
-	export let customClass = '';
+
 	export let withProgress = false;
 	export let stacked = true;
 	export let maxToasts = 3;
-	export let closable = true;
+	export let closable = false;
 
 	export let customToast = false;
 
@@ -103,9 +103,7 @@
 <div
 	use:usePortal
 	class={cn(
-		`fixed max-w-max max-h-max flex items-end gap-2 z-[9999] mx-2 my-3 ${positionClass(
-			position
-		)} ${customClass}`
+		`fixed max-w-max max-h-max flex items-end gap-2 z-[9999] mx-2 my-3 ${positionClass(position)} `
 	)}
 >
 	{#each $toasts as toast, index (toast.id)}
@@ -119,7 +117,7 @@
 			{#if customToast}
 				<slot data={toast} />
 			{:else}
-				<Toast {withProgress} {toast} {closable} {customClass} {enterTransition} {exitTransition} />
+				<Toast {withProgress} {toast} {closable} {enterTransition} {exitTransition} />
 			{/if}
 		</div>
 	{/each}

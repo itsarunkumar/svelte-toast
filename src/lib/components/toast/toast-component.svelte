@@ -13,10 +13,10 @@
 	import Loader from './icons/loading.svelte';
 
 	export let toast: Toast;
-	export let customClass: string = '';
+
 	export let closable: boolean = true;
-	export let enterTransition: any;
-	export let exitTransition: any;
+	export let enterTransition: Record<string, any>;
+	export let exitTransition: Record<string, any>;
 	export let withProgress: boolean = false;
 
 	const { progress } = toast;
@@ -72,7 +72,7 @@
 	on:click={() => removeToast(toast.id)}
 	in:fly={{ ...enterTransition }}
 	out:fly={{ ...exitTransition }}
-	class={`relative flex w-80 rounded-md   bg-gray-100 text-slate-800 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] drop-shadow-md   ${customClass}`}
+	class={`relative flex w-80 rounded-md   bg-gray-100 text-slate-800 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] drop-shadow-md `}
 >
 	{#if withProgress}
 		<div
