@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-kit/svelte-toast",
-	"version": "0.9.5",
+	"version": "0.9.6",
 	"description": "Toast UI for Svelte",
 	"repository": {
 		"type": "git",
