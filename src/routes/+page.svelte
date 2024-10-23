@@ -6,16 +6,17 @@
 
 	import { randomToast } from './toasts.js';
 	import { handleOnMove, updateLastMousePosition } from './effect.js';
+	// @ts-ignore
 	import Webdoc from './web-doc.svx';
 
 	// updateToastConfig({ duration: 9000, type: 'success' });
 
-	let isProgess = false;
+	let isProgess = $state(false);
 	let isStacked = true;
 	let maxToasts = 3;
 	let duration = 5000;
 
-	let curPosition = 'top-center';
+	let curPosition = $state('top-center');
 
 	let positions = [
 		'top-left',
@@ -32,19 +33,19 @@
 
 	const originPosition = { x: 0, y: 0 };
 
-	onMount(() => {
-		window.addEventListener('mousemove', handleOnMove);
-		window.addEventListener('touchmove', (e) => handleOnMove(e.touches[0]));
-		document.body.addEventListener('mouseleave', () => updateLastMousePosition(originPosition));
+	// onMount(() => {
+	// 	window.addEventListener('mousemove', handleOnMove);
+	// 	window.addEventListener('touchmove', (e) => handleOnMove(e.touches[0]));
+	// 	document.body.addEventListener('mouseleave', () => updateLastMousePosition(originPosition));
 
-		return () => {
-			window.removeEventListener('mousemove', handleOnMove);
-			window.removeEventListener('touchmove', (e) => handleOnMove(e.touches[0]));
-			document.body.removeEventListener('mouseleave', () =>
-				updateLastMousePosition(originPosition)
-			);
-		};
-	});
+	// 	return () => {
+	// 		window.removeEventListener('mousemove', handleOnMove);
+	// 		window.removeEventListener('touchmove', (e) => handleOnMove(e.touches[0]));
+	// 		document.body.removeEventListener('mouseleave', () =>
+	// 			updateLastMousePosition(originPosition)
+	// 		);
+	// 	};
+	// });
 </script>
 
 <div class="w-full h-screen flex flex-col items-center justify-center gap-5 relative">
@@ -67,14 +68,14 @@
 	<div class="flex gap-5 items-center justify-center font-semibold">
 		<button
 			class="capitalize px-5 py-2 rounded-md bg-slate-900 text-slate-50 shadow-lg"
-			on:click={() => {
+			onclick={() => {
 				curPosition = 'top-center';
 				randomToast(duration);
 			}}>toast</button
 		>
 		<button
 			class="capitalize px-5 py-2 rounded-md bg-purple-500 text-slate-50 shadow-lg"
-			on:click={() => {
+			onclick={() => {
 				toaster.promise({
 					title: 'Promise Toast',
 					content: new Promise((resolve) => {
@@ -116,7 +117,7 @@
 			<input
 				id="login"
 				type="checkbox"
-				on:input={checkbox}
+				oninput={checkbox}
 				bind:checked={isProgess}
 				class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
 			/>
@@ -166,7 +167,7 @@
 		<div class="flex gap-2 items-center flex-wrap justify-center">
 			{#each positions as position}
 				<button
-					on:click={() => {
+					onclick={() => {
 						toasts.set([]);
 						curPosition = position;
 						randomToast(duration);
@@ -185,11 +186,13 @@
 	</div>
 </div>
 
-<Toast position={curPosition} {maxToasts} withProgress={isProgess} let:data>
-	<div
-		class="w-80 py-2 text-center border bg-slate-50 text-slate-900 border-gray-600 border-opacity-30 shadow-xl rounded-md"
-	>
-		<h1>{data.title}</h1>
-		<p>{data.content}</p>
-	</div>
+<Toast position={curPosition} {maxToasts} withProgress={isProgess} >
+	{#snippet children({ data })}
+		<div
+			class="w-80 py-2 text-center border bg-slate-50 text-slate-900 border-gray-600 border-opacity-30 shadow-xl rounded-md"
+		>
+			<h1>{data.title}</h1>
+			<p>{data.content}</p>
+		</div>
+	{/snippet}
 </Toast>
