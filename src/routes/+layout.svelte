@@ -1,6 +1,8 @@
 <script>
 	import '../app.css';
 	import { inject } from '@vercel/analytics'
+	/** @type {{children?: import('svelte').Snippet}} */
+	let { children } = $props();
 
 	inject()
 </script>
@@ -9,7 +11,7 @@
 	<title>Svelte Toast</title>
 </svelte:head>
 
-<slot />
+{@render children?.()}
 
 <style>
 	:global(body) {

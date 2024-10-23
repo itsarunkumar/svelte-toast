@@ -1,3 +1,8 @@
+<script>
+	/** @type {{[key: string]: any}} */
+	let { ...props } = $props();
+</script>
+
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	width="24"
@@ -8,7 +13,7 @@
 	stroke-width="2"
 	stroke-linecap="round"
 	stroke-linejoin="round"
-	class={$$props.class}
+	class={props.class}
 	><line x1="12" x2="12" y1="2" y2="6" /><line x1="12" x2="12" y1="18" y2="22" /><line
 		x1="4.93"
 		x2="7.76"
