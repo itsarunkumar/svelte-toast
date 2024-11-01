@@ -15,7 +15,7 @@ export type Toast = {
 export type PromiseToast = {
 	id?: string;
 	title: string;
-	content: Promise<string>; // Change content type to Promise<string>
+	content: Promise<unknown>; // Change content type to Promise<string>
 	type?: 'promise'; // Explicitly set type to 'promise'
 	progressColor?: string;
 };

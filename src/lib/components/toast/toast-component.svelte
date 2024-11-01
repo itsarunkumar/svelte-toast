@@ -1,6 +1,6 @@
 <!-- Toast.svelte -->
 <script lang="ts">
-	import { removeToast } from './toast.js';
+	import { removeToast } from './toast.svelte.js';
 	import { cn } from '$lib/utils/cn.js';
 	import type { Toast } from './types.js';
 
@@ -11,7 +11,6 @@
 	import InfoIcon from './icons/info.svelte';
 	import ErrorIcon from './icons/error.svelte';
 	import Loader from './icons/loading.svelte';
-
 
 	interface Props {
 		toast: Toast;
