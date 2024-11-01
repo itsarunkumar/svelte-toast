@@ -4,7 +4,7 @@ import { tick } from 'svelte';
 
 import type { PromiseToast, Toast, ToastStore, ToastType } from './types.js';
 
-import { generateUniqueId, updateProgress } from './utils.js';
+import { generateUniqueId, updateProgress } from './utils.svelte.js';
 
 const defaultToastConfig = {
 	duration: 2000,
@@ -24,7 +24,7 @@ async function addPromiseToast(promiseToast: PromiseToast) {
 	const t: Toast = {
 		id: generateUniqueId(),
 		title: promiseToast.title,
-		content: promiseToast.content,
+		content: promiseToast.content as Promise<string>,
 		type: 'promise',
 		progressColor: promiseToast.progressColor
 	};

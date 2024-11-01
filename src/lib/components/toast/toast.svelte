@@ -1,20 +1,16 @@
 <!-- ToastContainer.svelte -->
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { flip } from 'svelte/animate';
 	import { scale } from 'svelte/transition';
 	import { linear } from 'svelte/easing';
 
 	import { usePortal } from '$lib/utils/portal.js';
-	import { toasts, clearLastToast } from './toast.js';
+	import { toasts, clearLastToast } from './toast.svelte.js';
 	import { cn } from '$lib/utils/cn.js';
 
 	import Toast from './toast-component.svelte';
 
 	// Props
-
-
 
 	// Position prop
 	interface Props {
@@ -23,13 +19,13 @@
 		maxToasts?: number;
 		closable?: boolean;
 		customToast?: boolean;
-		position?: 
-		| 'top-left'
-		| 'top-center'
-		| 'top-right'
-		| 'bottom-left'
-		| 'bottom-center'
-		| 'bottom-right';
+		position?:
+			| 'top-left'
+			| 'top-center'
+			| 'top-right'
+			| 'bottom-left'
+			| 'bottom-center'
+			| 'bottom-right';
 		children?: import('svelte').Snippet<[any]>;
 	}
 
@@ -70,11 +66,11 @@
 		return position === 'top-center' || position === 'top-left' || position === 'top-right'
 			? `top: calc(${index * 15}px);`
 			: position === 'bottom-center' || position === 'bottom-left' || position === 'bottom-right'
-			? `bottom: calc(${index * 15}px);`
-			: '';
+				? `bottom: calc(${index * 15}px);`
+				: '';
 	}
 
-	run(() => {
+	$effect(() => {
 		switch (position) {
 			case 'top-center':
 				enterTransition = { y: -20, duration: 500 };
@@ -103,15 +99,11 @@
 		}
 	});
 
-	run(() => {
+	$effect(() => {
 		if ($toasts.length > maxToasts) {
 			clearLastToast(maxToasts);
 		}
 	});
-
-	// $: if ($toasts.length === 0) {
-	// 	stacked = true;
-	// }
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -132,7 +124,7 @@
 			style={calculatePositionStyle(index)}
 		>
 			{#if customToast}
-				{@render children?.({ data: toast, })}
+				{@render children?.({ data: toast })}
 			{:else}
 				<Toast {withProgress} {toast} {closable} {enterTransition} {exitTransition} />
 			{/if}

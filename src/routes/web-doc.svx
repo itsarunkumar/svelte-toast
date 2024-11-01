@@ -62,3 +62,18 @@ import {toaster} from '@svelte-kit/svelte-toast';
 	</div>
 </Toast>
 ```
+
+**If you want to custom style the toast in :- svelte 5**
+```javascript
+<Toast customToast position={curPosition} {maxToasts} withProgress={isProgess}>
+	{#snippet children({ data })}
+		<div
+			class="w-80 py-2 text-center border bg-slate-500 text-slate-900 border-gray-600 border-opacity-30 shadow-xl rounded-md"
+		>
+			<h1>{data.title}</h1>
+			<p>{data.content}</p>
+		</div>
+	{/snippet}
+</Toast>
+
+```

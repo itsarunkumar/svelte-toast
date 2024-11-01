@@ -2,12 +2,14 @@
 	import { Toast, toaster, toasts } from '$lib/index.js';
 	import { onMount } from 'svelte';
 
-	import { version } from './constant.js';
+	// import { getVersion } from './constant.js';
 
+	import { version } from '$app/environment';
 	import { randomToast } from './toasts.js';
 	import { handleOnMove, updateLastMousePosition } from './effect.js';
 	// @ts-ignore
 	import Webdoc from './web-doc.svx';
+	import { get } from 'svelte/store';
 
 	// updateToastConfig({ duration: 9000, type: 'success' });
 
@@ -186,10 +188,10 @@
 	</div>
 </div>
 
-<Toast position={curPosition} {maxToasts} withProgress={isProgess} >
+<Toast position={curPosition} {maxToasts} withProgress={isProgess}>
 	{#snippet children({ data })}
 		<div
-			class="w-80 py-2 text-center border bg-slate-50 text-slate-900 border-gray-600 border-opacity-30 shadow-xl rounded-md"
+			class="w-80 py-2 text-center border bg-slate-500 text-slate-900 border-gray-600 border-opacity-30 shadow-xl rounded-md"
 		>
 			<h1>{data.title}</h1>
 			<p>{data.content}</p>
