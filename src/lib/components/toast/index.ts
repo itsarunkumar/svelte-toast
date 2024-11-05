@@ -1,2 +1,2 @@
 export { default as Toast } from './toast.svelte';
-export * from './toast.js';
+export * from './toast.svelte.js';

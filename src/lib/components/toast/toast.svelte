@@ -5,32 +5,43 @@
 	import { linear } from 'svelte/easing';
 
 	import { usePortal } from '$lib/utils/portal.js';
-	import { toasts, clearLastToast } from './toast.js';
+	import { toasts, clearLastToast } from './toast.svelte.js';
 	import { cn } from '$lib/utils/cn.js';
 
 	import Toast from './toast-component.svelte';
 
 	// Props
 
-	export let withProgress = false;
-	export let stacked = true;
-	export let maxToasts = 3;
-	export let closable = false;
-
-	export let customToast = false;
-
 	// Position prop
-	export let position:
-		| 'top-left'
-		| 'top-center'
-		| 'top-right'
-		| 'bottom-left'
-		| 'bottom-center'
-		| 'bottom-right' = 'bottom-right';
+	interface Props {
+		withProgress?: boolean;
+		stacked?: boolean;
+		maxToasts?: number;
+		closable?: boolean;
+		customToast?: boolean;
+		position?:
+			| 'top-left'
+			| 'top-center'
+			| 'top-right'
+			| 'bottom-left'
+			| 'bottom-center'
+			| 'bottom-right';
+		children?: import('svelte').Snippet<[any]>;
+	}
+
+	let {
+		withProgress = false,
+		stacked = true,
+		maxToasts = 3,
+		closable = false,
+		customToast = false,
+		position = 'bottom-right',
+		children
+	}: Props = $props();
 
 	// Transitions according to position
-	let enterTransition: Record<string, any> = { x: 20, duration: 500 };
-	let exitTransition: Record<string, any> = { x: -20, duration: 500 };
+	let enterTransition: Record<string, any> = $state({ x: 20, duration: 500 });
+	let exitTransition: Record<string, any> = $state({ x: -20, duration: 500 });
 
 	function positionClass(position: string) {
 		switch (position) {
@@ -55,11 +66,11 @@
 		return position === 'top-center' || position === 'top-left' || position === 'top-right'
 			? `top: calc(${index * 15}px);`
 			: position === 'bottom-center' || position === 'bottom-left' || position === 'bottom-right'
-			? `bottom: calc(${index * 15}px);`
-			: '';
+				? `bottom: calc(${index * 15}px);`
+				: '';
 	}
 
-	$: {
+	$effect(() => {
 		switch (position) {
 			case 'top-center':
 				enterTransition = { y: -20, duration: 500 };
@@ -86,19 +97,17 @@
 				exitTransition = { x: -20, duration: 500 };
 				break;
 		}
-	}
+	});
 
-	$: if ($toasts.length > maxToasts) {
-		clearLastToast(maxToasts);
-	}
-
-	// $: if ($toasts.length === 0) {
-	// 	stacked = true;
-	// }
+	$effect(() => {
+		if ($toasts.length > maxToasts) {
+			clearLastToast(maxToasts);
+		}
+	});
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 <!--  -->
 <div
 	use:usePortal
@@ -115,7 +124,7 @@
 			style={calculatePositionStyle(index)}
 		>
 			{#if customToast}
-				<slot data={toast} />
+				{@render children?.({ data: toast })}
 			{:else}
 				<Toast {withProgress} {toast} {closable} {enterTransition} {exitTransition} />
 			{/if}
